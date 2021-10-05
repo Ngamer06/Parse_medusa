@@ -43,7 +43,8 @@ def get_title(html):
         title=soup.title.text 
         return title
     else:
-        print('Error')
+        return 'Error'
+      
 
 
 def get_content(html):
@@ -58,7 +59,7 @@ def get_content(html):
             url.append(a)
         return url
     else:
-        print('Error')
+        return 'Error'
 
 
 def check_in_or_out_url(html):
