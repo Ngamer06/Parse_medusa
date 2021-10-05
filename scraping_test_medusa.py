@@ -36,7 +36,9 @@ def get_page(html):
 
 
 def get_title(html):
-    '''Get the page title'''
+    '''Get the page title
+    The function accepts an URL address of the page for parsing
+    '''
     page = requests.get(html)
     if page.status_code == 200:
         soup = BeautifulSoup(page.text, 'html.parser')
@@ -48,7 +50,9 @@ def get_title(html):
 
 
 def get_content(html):
-    '''Get urls from the page and verifies their correct'''
+    '''Get urls from the page and verifies their correct
+    The function accepts an URL address of the page for parsing
+    '''
     url = []
     page = get_page(html)
     if page.status_code == 200:
@@ -63,7 +67,9 @@ def get_content(html):
 
 
 def check_in_or_out_url(html):
-    '''Checking external and internal links'''
+    '''Checking external and internal links
+    The function accepts an URL address of the page for parsing
+    '''
     print('check ' + html)
     if html.startswith(host):
         print("in url - " + html)
