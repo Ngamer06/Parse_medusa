@@ -11,6 +11,9 @@ conn = sqlite3.connect('medusa.db')
 cur = conn.cursor()
 
 def create_table_all_posts():
+    '''
+    Создание таблицы для всех спарсенных новостей
+    '''
     cur.execute("""CREATE TABLE IF NOT EXISTS medusa_posts(
    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
    title TEXT,
@@ -19,6 +22,9 @@ def create_table_all_posts():
     conn.commit()
 
 def create_table_one_post():
+    '''
+    Создание таблицы для отдельных спарсенных новостей
+    '''
     cur.execute("""CREATE TABLE IF NOT EXISTS medusa_one_post(
    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
    text TEXT,
@@ -27,6 +33,9 @@ def create_table_one_post():
     conn.commit()
 
 def parse_all_posts(url, number_pages):
+    '''
+    Парсинг новостей с заданных страниц
+    '''
     driver = webdriver.Firefox()
     driver.get(url)
     create_table_all_posts()
@@ -52,6 +61,9 @@ def parse_all_posts(url, number_pages):
     driver.close()
 
 def parse_one_post():
+    '''
+    Парсинг из отдельной новости текста и ссылок на картинки
+    '''
     create_table_one_post()
     cur.execute("SELECT * FROM medusa_posts;")
     url_for_parse = cur.fetchall()
