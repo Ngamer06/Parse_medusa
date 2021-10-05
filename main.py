@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+# -----------------------------------------------------------
+# Parse news from 'https://meduza.io/'
+#
+# (C) 2021 Cherenkov Denis, Chelyabinsk, Russia
+# -----------------------------------------------------------
 import sqlite3
 
 from selenium import webdriver
@@ -32,9 +38,11 @@ def create_table_one_post():
     """)
     conn.commit()
 
-def parse_all_posts(url, number_pages):
+def parse_all_posts(url: str, number_pages: int):
     '''
     Parsing news from saved pages
+    url - site page address
+    number_pages - number of pages processed
     '''
     driver = webdriver.Firefox()
     driver.get(url)
@@ -44,22 +52,18 @@ def parse_all_posts(url, number_pages):
         try:
             driver.find_element_by_class_name('GDPRPanel-dismiss').click()
         except: pass
-        # driver1 = driver.find_element_by_class_name('Chronology-footer')
         driver.find_element_by_css_selector("button[class^='Button-module_root__RpsiW']").click()
-        # find_elements_by_css_selector("p[class^='SimpleBlock-module']")
         articles = driver.find_elements_by_class_name('Chronology-item')
         for i in articles:
-            # print(i)
             post = i.find_element_by_class_name('ChronologyItem-link')
             url = post.get_attribute('href')
-            # print(url)
             title = post.find_element_by_tag_name('strong').text
-            # print(title)
             cur.execute("INSERT INTO medusa_posts(title, url) VALUES(?, ?)", (title, url))
             conn.commit()
         number_pages -=1
     driver.close()
-
+    return 'Pages processed'
+    
 def parse_one_post():
     '''
     Parsing from a individual news text and image links
@@ -72,7 +76,6 @@ def parse_one_post():
         print(url_for_parse[z][2])
         driver.get(url_for_parse[z][2])
         main_article = driver.find_element_by_class_name("GeneralMaterial-article") 
-
         block_text = main_article.find_elements_by_css_selector("p[class^='SimpleBlock-module']")
         text_article = ''
         for i in block_text:
@@ -92,6 +95,7 @@ def parse_one_post():
         print('insert')
         conn.commit()
     driver.close()
+    return 'News parsed'
 
 
 
@@ -99,5 +103,6 @@ def parse_one_post():
 
 url_sitemap = 'https://meduza.io/'
 number_pages = 2
+
 parse_all_posts(url_sitemap, number_pages)
 parse_one_post()
