@@ -12,7 +12,7 @@ cur = conn.cursor()
 
 def create_table_all_posts():
     '''
-    Создание таблицы для всех спарсенных новостей
+    Creating a table for all saved news
     '''
     cur.execute("""CREATE TABLE IF NOT EXISTS medusa_posts(
    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -23,7 +23,7 @@ def create_table_all_posts():
 
 def create_table_one_post():
     '''
-    Создание таблицы для отдельных спарсенных новостей
+    Creating a table for individual parsed news
     '''
     cur.execute("""CREATE TABLE IF NOT EXISTS medusa_one_post(
    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -34,7 +34,7 @@ def create_table_one_post():
 
 def parse_all_posts(url, number_pages):
     '''
-    Парсинг новостей с заданных страниц
+    Parsing news from saved pages
     '''
     driver = webdriver.Firefox()
     driver.get(url)
@@ -62,7 +62,7 @@ def parse_all_posts(url, number_pages):
 
 def parse_one_post():
     '''
-    Парсинг из отдельной новости текста и ссылок на картинки
+    Parsing from a individual news text and image links
     '''
     create_table_one_post()
     cur.execute("SELECT * FROM medusa_posts;")
