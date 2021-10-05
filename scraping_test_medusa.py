@@ -47,7 +47,7 @@ def get_title(html: str) -> str:
         title=soup.title.text 
         return title
     else:
-        return 'Error'
+        raise Exception ('Error. Title was not parsed.')
       
 
 
@@ -65,7 +65,7 @@ def get_content(html: str) -> str:
             url.append(a)
         return url
     else:
-        return 'Error'
+        raise Exception ('Error. Url was not parsed.')
 
 
 def check_in_or_out_url(html: str) -> str:
@@ -78,7 +78,7 @@ def check_in_or_out_url(html: str) -> str:
         return html
     else:
         print("out url - " + html)
-        return False
+        raise Exception ('Error. Url is out.')
 
 
 url_from_page_start = get_content(url)
@@ -101,7 +101,7 @@ print('stack - ' + str(len(stack)))
 while stack != []:
     print('len stack = ' + str(len(stack)))
     url_from_stack = stack.pop()
-    while check_in_or_out_url(url_from_stack) == False:
+    while check_in_or_out_url(url_from_stack) == 'Error. Url is out.':
         db.add_count_in_db(url_from_stack)
         url_from_stack = stack.pop()
     else:
