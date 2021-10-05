@@ -16,7 +16,7 @@ from bs4 import BeautifulSoup
 conn = sqlite3.connect('medusa.db')
 cur = conn.cursor()
 
-def create_table_all_posts():
+def create_table_all_posts() -> str:
     '''
     Creating a table for all saved news
     '''
@@ -26,8 +26,9 @@ def create_table_all_posts():
    url TEXT);
     """)
     conn.commit()
+    return 'The table was created successfully'
 
-def create_table_one_post():
+def create_table_one_post() -> str:
     '''
     Creating a table for individual parsed news
     '''
@@ -37,12 +38,13 @@ def create_table_one_post():
    img TEXT);
     """)
     conn.commit()
+    return 'The table was created successfully'
 
-def parse_all_posts(url: str, number_pages: int):
+def parse_all_posts(url: str, number_pages: int) -> str:
     '''
     Parsing news from saved pages
-    url - site page address
-    number_pages - number of pages processed
+    param url - site page address
+    param number_pages - number of pages processed
     '''
     driver = webdriver.Firefox()
     driver.get(url)
@@ -64,7 +66,7 @@ def parse_all_posts(url: str, number_pages: int):
     driver.close()
     return 'Pages processed'
     
-def parse_one_post():
+def parse_one_post() -> str:
     '''
     Parsing from a individual news text and image links
     '''
