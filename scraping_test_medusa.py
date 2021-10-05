@@ -1,3 +1,10 @@
+
+# -*- coding: utf-8 -*-
+# -----------------------------------------------------------
+# Parse sitemap 'https://meduza.io/'
+#
+# (C) 2021 Cherenkov Denis, Chelyabinsk, Russia
+# -----------------------------------------------------------
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
