@@ -6,7 +6,7 @@ import json
 import datetime
 import pylab as plt
 
-#образец записи данных в карту сайта
+#sample data in the site map
 patt = """
 <url>
    <loc>{0}</loc>
@@ -19,17 +19,17 @@ patt = """
 url_from_page_start = []
 urls_met = []
 stack = []
-url = 'https://meduza.io/' #TODO input('Введите адрес сайта :')
-host = 'https://meduza.io/' #TODO input('Введите HOST сайта :')
+url = 'https://meduza.io/'
+host = 'https://meduza.io/'
 
 def get_page(html):
-    '''Получение страницы'''
+    '''Get a page'''
     page = requests.get(html)
     return page
 
 
 def get_title(html):
-    '''Получение заголовка страницы'''
+    '''Get the page title'''
     page = requests.get(html)
     if page.status_code == 200:
         soup = BeautifulSoup(page.text, 'html.parser')
@@ -40,7 +40,7 @@ def get_title(html):
 
 
 def get_content(html):
-    '''Получает url со страницы и проверяет их правильность'''
+    '''Get urls from the page and verifies their correct'''
     url = []
     page = get_page(html)
     if page.status_code == 200:
@@ -55,7 +55,7 @@ def get_content(html):
 
 
 def check_in_or_out_url(html):
-    '''Проверка ссылок на внешние и внутренние'''
+    '''Checking external and internal links'''
     print('check ' + html)
     if html.startswith(host):
         print("in url - " + html)
