@@ -22,31 +22,29 @@ stack = []
 url = 'https://meduza.io/' #TODO input('Введите адрес сайта :')
 host = 'https://meduza.io/' #TODO input('Введите HOST сайта :')
 
-def get_page(html):# получение страницы
+def get_page(html):
+    '''Получение страницы'''
     page = requests.get(html)
     return page
 
 
-def get_title(html): # получение заголовка страницы
+def get_title(html):
+    '''Получение заголовка страницы'''
     page = requests.get(html)
-    if page.status_code == 200: #проверка доступа к странице
-        #получение страницы в объекты супа
+    if page.status_code == 200:
         soup = BeautifulSoup(page.text, 'html.parser')
-        # поиск заголовка страницы
         title=soup.title.text 
         return title
     else:
         print('Error')
 
 
-def get_content(html): #получает url со страницы и проверяет их правильность
+def get_content(html):
+    '''Получает url со страницы и проверяет их правильность'''
     url = []
     page = get_page(html)
     if page.status_code == 200:
-        #получение страницы в объекты супа
         soup = BeautifulSoup(page.text, 'html.parser')
-        #поиск всех атрибутов href во всех тегах а
-        #и проверка на относительные ссылки
         for a in (tag['href'] for tag in soup('a')):
             if not a.startswith('http'):
                 a = urljoin(host, a)
@@ -56,7 +54,8 @@ def get_content(html): #получает url со страницы и прове
         print('Error')
 
 
-def check_in_or_out_url(html): #проверка ссылок на внешние и внутренние
+def check_in_or_out_url(html):
+    '''Проверка ссылок на внешние и внутренние'''
     print('check ' + html)
     if html.startswith(host):
         print("in url - " + html)
@@ -68,7 +67,7 @@ def check_in_or_out_url(html): #проверка ссылок на внешни�
 
 url_from_page_start = get_content(url)
 now = datetime.datetime.now()
-out=open('sitemap.xml', 'w') # Создаем файл sitemap в текущей папке скрипта
+out=open('sitemap.xml', 'w')
 print(len(url_from_page_start))
 db.create_db()
 db.create_db_follow()
