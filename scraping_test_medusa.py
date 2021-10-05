@@ -29,15 +29,17 @@ stack = []
 url = 'https://meduza.io/'
 host = 'https://meduza.io/'
 
-def get_page(html):
-    '''Get a page'''
+def get_page(html: str) -> str:
+    '''Get a page
+     param html [URL address of the page for parsing]
+     '''
     page = requests.get(html)
     return page
 
 
-def get_title(html):
+def get_title(html: str) -> str:
     '''Get the page title
-    The function accepts an URL address of the page for parsing
+    param html [URL address of the page for parsing]
     '''
     page = requests.get(html)
     if page.status_code == 200:
@@ -49,9 +51,9 @@ def get_title(html):
       
 
 
-def get_content(html):
+def get_content(html: str) -> str:
     '''Get urls from the page and verifies their correct
-    The function accepts an URL address of the page for parsing
+    param html [URL address of the page for parsing]
     '''
     url = []
     page = get_page(html)
@@ -66,9 +68,9 @@ def get_content(html):
         return 'Error'
 
 
-def check_in_or_out_url(html):
+def check_in_or_out_url(html: str) -> str:
     '''Checking external and internal links
-    The function accepts an URL address of the page for parsing
+    param html [URL address of the page for parsing]
     '''
     print('check ' + html)
     if html.startswith(host):
