@@ -18,7 +18,7 @@ cur = conn.cursor()
 
 def create_table_all_posts() -> str:
     '''
-    Creating a table for all selected news
+    Creating a table for all saved news
     '''
     cur.execute("""CREATE TABLE IF NOT EXISTS medusa_posts(
    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -42,7 +42,7 @@ def create_table_one_post() -> str:
 
 def parse_all_posts(url: str, number_pages: int) -> str:
     '''
-    Parsing news from saved pages
+    Parsing news from selected pages
     param url - site page address
     param number_pages - number of pages processed
     '''
