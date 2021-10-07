@@ -18,7 +18,7 @@ cur = conn.cursor()
 
 def create_table_all_posts() -> str:
     '''
-    Creating a table for all saved news
+    Creating a table for all selected news
     '''
     cur.execute("""CREATE TABLE IF NOT EXISTS medusa_posts(
    id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
